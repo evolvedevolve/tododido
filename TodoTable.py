@@ -23,10 +23,39 @@ from datetime import datetime
 # a list of activities to select from - to do make this its own spreadsheet which can be overwritten to! add new activity
 sample_activities = ["Learn Python", "Make Food", "Recap", "Plan", "Errands",
                      "Groceries", "Make Food", "Eat", "Walk", "Game", "Cat Care", "Portfolio"]
+
+family_activities = ["Baby Planning", "Baby Reading"]
+
+# should do activities 
+shoulddo_activities = ["Maintain Home", "Plan Future", "Organization",
+                       "Financials", "Taxes", "Home Improvement"]
+
+# health activities
+healthy_activities = ["Meditate", "Work Out", 
+                      "Journal", "Walk", "Physio",
+                      "Phone PPL", "Clean House"
+                      ]
+
+# productive hobbies 
+productive_hobbies = ["Video Edit", "Draw", "Writing"]
+
+# relaccs/earned activities
+earned_activites = ["Watch TV", "Watch Movies", "Game", "Socialize"]
+
+# breaks that are good for you
+good_breaks = ["Wim Hof", "Romance Ideas", "5min Meditate", 
+               "10min Free Drawing", "10min Journal", "Write Poetry"]
+
+# daily activities
+daily_activities = ["Make Food", "Eat", "Tidy Kitchen"]
+
+# weekly activities
+weekly_activities = ["Meal Plan", "Tidy House", "Laundry"]
+
 # add any appointments, tasks, events, goals, must-dos, should-dos, want-tos
 
 # a master list (probabaly a dictionary) of sequencial activities defined by the user
-# routines ["Morning",""]
+routines = ["Morning", "Bedtime", "After Work"]
 
 
 # sample 
@@ -102,6 +131,8 @@ def display_todo_graph(data):
 # need to add a state for storage so stuff doesnt get update so many times
 # currently many csv files get generated but we need to limit
 # the update soley to when the whole table state is complete or something
+# dcc.Store(id='session', storage_type='session'), 
+# likely need to store the whole table 
 @app.callback(    
      [
       Output('placeholder','children'),
@@ -114,6 +145,7 @@ def save_todo_to_csv(n_clicks, data, s):
     current_time = datetime.now().strftime("%Y%m%d-%H%M_")
     store_df = pd.DataFrame(data)
     store_df.to_csv(current_time+'todo.csv')
+    # this is super broken and doesnt actually use the button!
     if n_clicks > 0:
             output = html.Plaintext("The TO DO list has been created and saved.")
     else:
