@@ -23,12 +23,20 @@ import pandas as pd
 # local might also work
 
 activity_list = []
+#description_list = []  #probabbly can do this in a better way with pandas
 #, debounce=True
+# dcc.Textarea(id="current_item_details", placeholder="Details or notes",
+#                  style={'width': 250, 'height': 15, 'padding':10}),
+# State('current_item_details','value'),
+
+
 app = dash.Dash(__name__)
 app.layout = html.Div(children = [
     html.H1('Add items to a list'),
-    dcc.Input(id="current_item", placeholder="Thing to do"),
+    html.Div(id='input_fields_container', children=[
+        dcc.Input(id="current_item", placeholder="Thing to do"),        
     html.Button('Add...', id='add_button', n_clicks=0),
+        ]),    
     html.Div(id="items_output_container", children = []),
     html.Button('Save to CSV', id='save_to_csv_button', n_clicks=0),
     html.Div(id='saved_message_div', children=[]),
@@ -42,10 +50,14 @@ app.layout = html.Div(children = [
      State('session_store','data')]
     )
 def add_to_list(n_clicks, current_item_value, session_store):
+    ''' when the add_button is clicked, return the value from current_item'''
     if n_clicks is None:
         raise PreventUpdate
     temporary_item = html.P(current_item_value)
-    activity_list.append(temporary_item)    
+    activity_list.append(temporary_item)
+    #temp_desc = html.P(cur_item_desc)
+    #description_list.append(temp_desc)
+    print(activity_list)
     
     return activity_list
 
@@ -55,6 +67,7 @@ def add_to_list(n_clicks, current_item_value, session_store):
      Input('items_output_container','children')]
     )
 def save_to_csv(n_clicks, children):
+    # this is still firing before click need prevent initial update
     if n_clicks is None:
         raise PreventUpdate
     # p is still getting created
