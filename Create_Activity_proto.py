@@ -64,9 +64,9 @@ unsorted_df = pd.DataFrame({
     'mean_duration' : activity_means
     })
 sorted_activities = unsorted_df.sort_values('mean_duration', ascending=False)
-
+indexed_sorted_activities = sorted_activities.reset_index(drop=True)
 # okay there is this dumb extra index but im just selecting a column anyway
-sorted_activities.to_csv('data/activities.csv')
-print(sorted_activities.head())
+indexed_sorted_activities.to_csv('data/activities.csv')
+print(indexed_sorted_activities.head())
 
 #, 'Mean Duration': activity_means
