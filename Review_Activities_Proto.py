@@ -33,14 +33,16 @@ missed_list = []
 done_list = []
 
 
-with open('data/2021-11-05-sample.txt', 'r+') as today_list:
+with open('data/2021-11-05-sample.txt', 'r') as today_list:
     #missed_list = []
     
     #something = map(re.findall(m_reggie, today_list[]), today_list)
+    split_lines = today_list.read().split("\n")
     
-    
-    for line in today_list:
-        line = str(line.replace('\\n', ''))
+    for line in split_lines:
+        #line = 
+        line = line.replace('\t', '')
+        # count the tabs?
         
         #print(line)
         # todo use map() function to do this work
@@ -50,7 +52,7 @@ with open('data/2021-11-05-sample.txt', 'r+') as today_list:
             missed_list.append(line)
             
         elif d_reggie in line:
-            print(line + " done activity")
+            #print(line + " done activity")
             done_list.append(line)
         #missed_match = re.findall(m_reggie, line_now, flags=0)
         #print(missed_match)
@@ -64,5 +66,7 @@ with open('data/2021-11-05-sample.txt', 'r+') as today_list:
             missed_list.append(line)
         '''
 
-print(str(missed_list))
-print(str(done_list))
+print("you completed " + str(len(done_list)) + " activities and missed " + str(len(missed_list)) + " activties")
+
+#print(str(missed_list))
+#print(str(done_list))
